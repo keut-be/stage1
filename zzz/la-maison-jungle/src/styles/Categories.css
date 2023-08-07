@@ -1,0 +1,20 @@
+.lmj-categories {
+	text-align: left;
+	padding-top: 30px;
+}
+
+.lmj-categories > button{
+    text-decoration: none;
+    border: none;
+    background: transparent;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.lmj-categories  .bt-1 > ion-icon{
+    color: green;
+}
+
+.lmj-categories-select {
+	margin-right: 15px;
+}
