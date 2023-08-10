@@ -1,60 +1,71 @@
-import React from 'react';
+import React, { useReducer } from 'react';
 import '../styles/login.css';
 import { useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthData } from '../auth/AuthWrapper';
 
 
-const users = [
-  {
-    login: 'boris',
-    password: 'tootreee'
-  },
-];
 
 const Login = () => {
-  const [login, setLogin] = useState('');
-  const [password, setPassword] = useState('');
-  console.log(users)
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(`Username: ${login}, Password: ${password}`);
-    const user = users.find((user) => user.login === login);
-    if (user && user.password === password) {
-      return <Navigate to='/home' />1
+    const navigate = useNavigate();
+    const { login } = AuthData()
+    const [ formData, setFormData ] = useReducer((formData, newItem) => { return ( {...formData, ...newItem} )}, {userName: '', password: ''});
+    const [ errorMessage, setErrorMessage ] = useState('');
+
+    const doLogin = async (e) =>{
+e.preventDefault();
+        try {
+
+                await login (formData.userName, formData.password);
+                navigate('/account');
+        } catch (error) {
+            setErrorMessage(error)
+        }
     }
-  };
 
-  return (
+    console.log(formData.password+formData.userName)
+
+   
+
+    return ( 
     <header>
-      <div className='wraper'>
-        <form onSubmit={handleSubmit}>
-          <h1>Login</h1>
-          <div className='input-box'>
-            <input  type='text'  placeholder='Username'  required  name='login'  value={login}  onChange={(e) => setLogin(e.target.value)}  />
-            <ion-icon name='person'></ion-icon>
-          </div>
-          <div className='input-box'>
-            <input type='password'  placeholder='Password'  required  name='password'  value={password}  onChange={(e) => setPassword(e.target.value)}  />
-            <ion-icon name='lock'></ion-icon>
-          </div>
-          <div className='remenber-forgot'>
-            <label>
-              <input type='checkbox' />
-              Remenber me?
-            </label>
-            <a href='#'>Forgot Password?</a>
-          </div>
+        <div className ='wraper'>
+        <form onSubmit={doLogin}>
+        <h1>Login</h1>  <div className='input-box'>
+        <input type='text'
+        placeholder='Username'
+        id='userName'
+        value={formData.userName}
+        onChange={(e) => setFormData({userName: e.target.value})
+        }
+        /> <ion-icon name='person'> </ion-icon> </div>  <div className='input-box'>
+        <input 
+        type='password'
+        placeholder='Password'
+        id='password'
+        value={formData.password}
+        onChange={(e) => setFormData({password: e.target.value})
+        }
+        />  <ion-icon name='lock'> </ion-icon> </div>
+        <div className='remenber-forgot'>
+        <label>
+        <input type='checkbox'/>
+        Remenber me ?
+        </label> <a href='#'> Forgot Password ? </a></div>
 
-          <button type='submit' className='btn'>
-            Sign In
-          </button>
-          <p>Don't have an account? <Link className='link' to='/auth/register'>Register</Link></p>
-        </form>
-      </div>
+        <button type='buton'
+        // onClick={doLogin}
+        className='btn'>
+        Sign In
+        </button><p>Don 't have an account? <Link className='link' to='/auth / register '>Register</Link></p>
+        { errorMessage ?
+            <div className='error'>{errorMessage}</div>
+        : null}
+        </form> 
+        </div>
     </header>
-  );
+    );
 };
 
 export default Login;
-          

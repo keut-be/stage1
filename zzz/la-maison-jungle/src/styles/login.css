@@ -115,3 +115,7 @@ header{
     text-decoration: underline;
 }
 
+.wraper .error{
+    color: red;
+}
+

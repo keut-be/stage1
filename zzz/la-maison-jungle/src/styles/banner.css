@@ -23,3 +23,18 @@
 	color: white;
 	background: #31b572;
 }
+
+.menuItem{
+	background-color: #31b572;
+}
+
+.menuItem  a{
+	padding: 6px;
+	margin: 3px;
+	position: top;
+	align-items: center;
+	display: flex;
+	color: white;
+	text-decoration: none;
+	transform: translateX(890px);
+}
