@@ -1,8 +1,8 @@
 import React from "react";
 import { Route, Routes } from "react-router";
 import { Link } from "react-router-dom";
-import nav from "./Navigation";
 import '../styles/banner.css';
+import nav from "./Navigation"
 import { AuthData } from "../auth/AuthWrapper";
 
 

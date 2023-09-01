@@ -1,39 +1,49 @@
-import React from 'react';
-import '../styles/login.css';
 import { useState } from 'react';
-// import { Navigate } from 'react-router';
+import '../styles/login.css';
+import { useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
+import { addToArray } from './action';
 
-
-const users = [
-  {
-    login: 'boris',
-    password: 'tootree'
-  },
-];
 
 const Register = () => {
+
+  
   const [login, setLogin] = useState('');
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState('')
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(`Username: ${login}, Password: ${password}`);
-    users.push({ login, password });
-    console.log(users);
-  };
 
+  const doLogin = async (e) =>{
+    e.preventDefault();
+    dispatch(addToArray({ login, password }));
+    setLogin('');
+    setPassword('');
+    navigate('/login');
+  }
   return (
     <header>
       <div className='wraper'>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={doLogin}>
           <h1>Register</h1>
           <div className='input-box'>
-            <input type='text' placeholder='Username' required name='login' value={login} onChange={(e) => setLogin(e.target.value)}/>
+            <input type='text'
+              placeholder='UserName'
+              id='login'
+              value={login}
+              onChange={(e) => setLogin(e.target.value)
+              }
+            />
             <ion-icon name='person'></ion-icon>
           </div>
           <div className='input-box'>
-            <input type='password' placeholder='Password'
-              required name='password' value={password} onChange={(e) => setPassword(e.target.value)}/>
+            <input type='password'
+              placeholder='Password'
+              id='password'
+              value={password}
+              onChange={(e) => setPassword(e.target.value)
+              }
+            />
             <ion-icon name='lock'></ion-icon>
           </div>
           <div className='remenber-forgot'>

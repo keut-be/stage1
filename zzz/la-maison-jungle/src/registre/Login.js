@@ -2,7 +2,7 @@ import React, { useReducer } from 'react';
 import '../styles/login.css';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { AuthData } from '../auth/AuthWrapper';
+import { AuthData } from '../auth/AuthWrapper'; 
 
 
 
@@ -14,17 +14,18 @@ const Login = () => {
     const [ errorMessage, setErrorMessage ] = useState('');
 
     const doLogin = async (e) =>{
-e.preventDefault();
+    e.preventDefault();
         try {
 
                 await login (formData.userName, formData.password);
-                navigate('/account');
+                navigate('/');
         } catch (error) {
             setErrorMessage(error)
         }
     }
 
-    console.log(formData.password+formData.userName)
+    // console.log(formData.password+formData.userName)
+    console.log(formData)
 
    
 
@@ -58,7 +59,8 @@ e.preventDefault();
         // onClick={doLogin}
         className='btn'>
         Sign In
-        </button><p>Don 't have an account? <Link className='link' to='/auth / register '>Register</Link></p>
+        </button>
+        <p>Don 't have an account? <Link className='link' to='/register '>Register</Link></p>
         { errorMessage ?
             <div className='error'>{errorMessage}</div>
         : null}
